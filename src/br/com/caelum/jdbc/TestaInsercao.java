@@ -1,26 +1,31 @@
 package br.com.caelum.jdbc;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TestaInsercao {
 
-    public static void main(String[] args) throws SQLException {
-        String nome = "Notebook";
-        String descricao = "Notebook i5";
-
-        Connection connection = Database.getConnection();
-
-        String sql = "insert into Produto (nome, descricao) values ('" + nome + "', '" + descricao + "')";
-        Statement stmt = connection.createStatement();
-                boolean resultado = stmt.execute(sql);
-        System.out.println(resultado);
-
-        stmt.close();
-        connection.close();
-
-    }
+	public static void main(String[] args) throws SQLException {
+		
+		Connection connection = Database.getConnection();
+		Statement statement = connection.createStatement();
+		
+		boolean resultado = statement.execute("insert into produtos (nome, descricao) values ('Notebook','Notebook Dell')");
+		ResultSet resultSet = statement.getGeneratedKeys();
+		
+		
+		while(resultSet.next()) {
+			String id = resultSet.getString("id");
+			System.out.println("O id é " + id);
+		}
+		
+		resultSet.close();
+		statement.close();
+		connection.close();
+		
+	}
 	
 	
 }
