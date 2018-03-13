@@ -15,7 +15,7 @@ public class Database {
 	
 	private DataSource dataSource;
 	
-	Database() {
+	public Database() {
 		JDBCPool pool = new JDBCPool();
 		pool.setURL("jdbc:hsqldb:hsql://localhost/loja-virtual");
 		pool.setUser("SA");
