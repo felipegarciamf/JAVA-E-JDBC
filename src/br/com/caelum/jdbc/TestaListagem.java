@@ -7,13 +7,20 @@ import java.sql.Statement;
 
 public class TestaListagem {
 	
+	
+	
 	public static void main(String[] args) throws SQLException {
-		Connection connection = Database.getConnection();
+		Database database = new Database();
+		
+		for (int i = 0; i > 100; i++) {
+		
+		Connection connection = database.getConnection();
 		
 		Statement statement = connection.createStatement();
+	
 		boolean resultado = statement.execute("select * from Produto");
 		ResultSet resultSet = statement.getResultSet();
-		
+	
 		while(resultSet.next()) {
 			int id = resultSet.getInt("id");
 			String nome = resultSet.getString("nome");
@@ -25,7 +32,7 @@ public class TestaListagem {
 		resultSet.close();
 		statement.close();
 		connection.close();
-		
+	}
 	}
 
 

@@ -12,7 +12,7 @@ public class TestaInsercao {
 		
 		String sql = "insert into produtos (nome, descricao) values (?, ?)";
 		
-		try(Connection connection = Database.getConnection();){
+		try(Connection connection = new Database().getConnection();){
 			connection.setAutoCommit(false);
 
 		try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);){

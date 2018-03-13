@@ -8,7 +8,7 @@ public class TesteRemocao {
 
 	public static void main(String[] args) throws SQLException {
 		
-		Connection connection = Database.getConnection();
+		Connection connection = new Database().getConnection();
 		Statement statement = connection.createStatement();
 		
 		boolean resultado = statement.execute("delete from Produto where id>3");
