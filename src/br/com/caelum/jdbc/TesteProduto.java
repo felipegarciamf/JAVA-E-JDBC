@@ -29,16 +29,20 @@ public class TesteProduto {
 		
 		Produto mesa = new Produto("Mesa azul", "Mesa com pés");
 		
+		teste(mesa);
+
+        
+	}
+
+	private static void teste(Produto produtobase) throws SQLException {
 		try(Connection con = new Database().getConnection()){
 			ProdutosDAO dao = new ProdutosDAO(con);
-			dao.salva(mesa);
+			dao.salva(produtobase);
 			
 			List<Produto> produtos = dao.lista();
 			for (Produto produto : produtos) {
 				System.out.println("Existe o produto: " + produto);
 			}
 		}
-
-        
 	}
 }
