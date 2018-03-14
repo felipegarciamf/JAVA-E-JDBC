@@ -12,7 +12,6 @@ public class Produto {
 		this.descricao = descricao;
 	}
 	
-	
 	public String getNome() {
 		return nome;
 	}
@@ -34,5 +33,10 @@ public class Produto {
 		this.descricao = descricao;
 	}
 		
+	@Override
+	public String toString() {
+		return String.format("[produto: %d %s %s", id, nome, descricao);
+		
+	}
 	
 }

@@ -1,44 +1,44 @@
 package br.com.caelum.jdbc;
 
+import java.sql.Array;
+import java.sql.Blob;
+import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.NClob;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
+import java.sql.SQLWarning;
+import java.sql.SQLXML;
+import java.sql.Savepoint;
 import java.sql.Statement;
-
-import javax.sql.DataSource;
-
-
+import java.sql.Struct;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.Executor;
 
 import br.com.caelum.jdbc.modelo.Produto;
 
 public class TesteProduto {
 
 	public static void main(String[] args) throws SQLException {
-		Database database = new Database();
+		
 		
 		Produto mesa = new Produto("Mesa azul", "Mesa com pés");
 		
-		
-		
-        try (Connection con = new Database().getConnection()) {
-        	String sql = "insert into Produto(nome, descricao) values (?, ?)";
-        	
-        	try(PreparedStatement sts = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-        		sts.setString(1, "nome");
-        		sts.setString(2, "descricao");
-        		sts.execute();
-        		try(ResultSet rs = sts.getGeneratedKeys() ){
-        			if(rs.next()) {
-        				int id = rs.getInt("id");
-        				mesa.setId(id);
-        			}
-        		}
-        	}
-        	
+		try(Connection con = new Database().getConnection()){
+			ProdutosDAO dao = new ProdutosDAO(con);
+			dao.salva(mesa);
+			
+			List<Produto> produtos = dao.lista();
+			for (Produto produto : produtos) {
+				System.out.println("Existe o produto: " + produto);
+			}
+		}
 
-        }
-		
+        
 	}
-	
 }
